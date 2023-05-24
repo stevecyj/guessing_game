@@ -1,5 +1,6 @@
 use std::io;
 use rand::Rng;
+use std::cmp::Ordering;
 
 fn main() {
     println!("請猜測一個數字：");
@@ -14,5 +15,13 @@ fn main() {
     io::stdin().read_line(&mut guess)
         .expect("讀取行數失敗");
 
+    let guess: u32 = guess.trim().parse().expect("請輸入一個數字！");
+
     println!("你猜測的數字是：{guess}");
+
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("太小了！"),
+        Ordering::Greater => println!("太大了！"),
+        Ordering::Equal => println!("獲勝！"),
+    }
 }
